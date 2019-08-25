@@ -23,6 +23,7 @@ if __name__ == "__main__":
     token_weight_factor = 1 # multiply token amount to get weight
     min_token_amount = 1.00
     max_post_age_days = 5
+    min_post_age = 15
     whitelist = []
     blacklist_tags = []
     only_main_posts = True
@@ -54,6 +55,9 @@ if __name__ == "__main__":
             if (c.time_elapsed().total_seconds() / 60 / 60 / 24) > max_post_age_days:
                 print("Post is to old, skipping")
                 continue                
+            if (c.time_elapsed().total_seconds() / 60) < min_post_age:
+                print("Post is to new, skipping")
+                continue   
             tags_ok = True
             if len(blacklist_tags) > 0 and "tags" in c:
                 for t in blacklist_tags:
